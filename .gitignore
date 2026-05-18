@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.cache/
+.ipynb_checkpoints/
+wandb/
+saebench_results_*/
+artifacts/
+checkpoints/*
+!checkpoints/topk_sasa_gpt2_l7_n2048_r6_k10/
