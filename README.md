@@ -1,16 +1,18 @@
 # SASA: Subspace-Aware Sparse Autoencoders
 
-Code to reproduce the GPT-2 results of the SASA paper. SASA replaces each one-dimensional SAE decoder atom with a learned decoder subspace, enforces Top-`s` group sparsity, and adds a nuclear-norm regularizer.
+Code to reproduce the GPT-2 results from the SASA paper. A standard sparse
+autoencoder gives every feature a single decoder direction. SASA instead learns
+a small decoder *subspace* per feature, keeps only the top groups active for any
+given token, and regularizes those subspaces with a nuclear-norm penalty.
 
 ## Layout
 
 ```
-sasa/                  TopK-SASA model + BatchTopK-Manifold baseline architecture
-scripts/train_sasa.py  GPT-2 training
-eval/                  SAEBench wrappers: core metrics + interpretability
-theory/                Line-covering verification
-analysis/              Decoder-cluster redundancy, temporal + geographical subspaces
-checkpoints/topk_sasa_gpt2_l7_n2048_r6_k10/   Pre-trained SASA (GPT-2 layer 7, K=2048, r=6, s=10)
+sasa/                  SASA model
+scripts/train_sasa.py  Training script for GPT-2
+eval/                  SAEBench evaluation wrappers
+analysis/              Decoder-cluster redundancy analysis
+checkpoints/           Pre-trained SASA checkpoint (GPT-2 layer 7; 2048 groups, rank 6, 10 active per token)
 ```
 
 ## Setup
@@ -21,9 +23,13 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-Set `SASA_CACHE_ROOT` to control HuggingFace / W&B / tmp cache root (default: `~/.cache/sasa`).
+`SASA_CACHE_ROOT` sets where HuggingFace, W&B, and temporary files are cached
+(default: `~/.cache/sasa`).
 
-## Train SASA on GPT-2 (150M OpenWebText tokens, ~hrs on 1x A100)
+## Training
+
+The command below trains a SASA autoencoder on layer 7 of GPT-2 small over 150M
+tokens of OpenWebText. A single GPU is enough.
 
 ```bash
 python -m scripts.train_sasa \
@@ -39,7 +45,13 @@ python -m scripts.train_sasa \
 
 ## Evaluation
 
-KL / CE / explained variance / L0, SASA vs. SAELens control SAE:
+Both evaluation scripts compare a trained SASA autoencoder against a baseline:
+the standard pretrained GPT-2 SAE released as `gpt2-small-res-jb` through SAE
+Lens. This is the closest off-the-shelf reference point — a conventional SAE
+trained on the same layer of the same model.
+
+Reconstruction and faithfulness metrics (KL divergence, cross-entropy,
+explained variance, L0):
 
 ```bash
 python -m eval.run_core \
@@ -47,40 +59,20 @@ python -m eval.run_core \
   --hook blocks.7.hook_resid_pre
 ```
 
-Sparse-probing AutoInterp + absorption, cross-architecture:
+Sparse-probing accuracy:
 
 ```bash
 python -m eval.run_interpretability \
   --manifold-sae-dir checkpoints/topk_sasa_gpt2_l7_n2048_r6_k10 \
   --baseline-sae-release gpt2-small-res-jb \
-  --hook blocks.7.hook_resid_pre \
   --model-name gpt2
 ```
 
-## Theory verification
+## Decoder-cluster analysis
 
-Synthetic + GPT-2 line-covering curves:
-
-```bash
-python -m theory.verify_covering
-```
-
-## Interpretability figures
-
-Decoder-cluster redundancy ratios on a trained SAE:
+Reports how strongly decoder directions cluster together (redundancy ratios) for
+a trained autoencoder:
 
 ```bash
 python -m analysis.cluster_decoders --sae-dir checkpoints/topk_sasa_gpt2_l7_n2048_r6_k10
-```
-
-Temporal subspace:
-
-```bash
-python -m analysis.temporal_subspace --sae-dir checkpoints/topk_sasa_gpt2_l7_n2048_r6_k10
-```
-
-Geographical subspace; needs RAVEL city/country/continent JSONs under `data/ravel/`:
-
-```bash
-python -m analysis.geographical_subspace --sae-dir checkpoints/topk_sasa_gpt2_l7_n2048_r6_k10
 ```
