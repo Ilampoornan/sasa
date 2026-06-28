@@ -1,0 +1,425 @@
+{
+  "meta": {
+    "sae_dir": "checkpoints/topk_sasa_gpt2_l7_n2048_r6_k10",
+    "group_id": 1751,
+    "n_groups": 2048,
+    "group_rank": 6,
+    "hook_name": "blocks.7.hook_resid_pre",
+    "model_name": "gpt2",
+    "seed": 42,
+    "year_min": 1980,
+    "year_max": 2024,
+    "years_single_token_only": true,
+    "representation": "latent",
+    "min_group_norm": 0.0,
+    "plot_source": "all",
+    "mode": "prompt",
+    "corpus_dataset": "openwebtext",
+    "corpus_split": "train",
+    "corpus_docs": 2500,
+    "corpus_max_tokens": 128,
+    "corpus_max_samples_per_label": 200,
+    "corpus_include_aliases": true,
+    "mdf_style": false,
+    "mdf_max_samples": 20000,
+    "mdf_axes_days": "2,3",
+    "mdf_axes_months": "2,3",
+    "mdf_axes_years": "3,4",
+    "circular_regression": false,
+    "circular_permutations": 200,
+    "circular_cv_splits": 5,
+    "circular_ridge": 0.001,
+    "circular_standardize": true,
+    "ph_test": false,
+    "ph_max_points": 250,
+    "ph_pca_dim": 5,
+    "ph_max_eps_quantile": 0.2,
+    "ph_null_samples": 50,
+    "ph_max_triangles": 2000000,
+    "specificity": false,
+    "specificity_top_k": 8,
+    "specificity_quantile": 0.99,
+    "specificity_label_set": "base",
+    "hierarchy": false,
+    "hierarchy_max_samples_per_label": 80,
+    "hierarchy_min_label_samples": 20,
+    "hierarchy_permutations": 200,
+    "qualitative": false,
+    "qualitative_max_samples_per_label": 40,
+    "qualitative_prompts": 3
+  },
+  "counts": {
+    "days": {
+      "n_samples": 35,
+      "mean_group_norm": 11.777563858032227,
+      "std_group_norm": 0.3324264749470349,
+      "mean_vector_norm": 11.77756404876709,
+      "std_vector_norm": 0.33242636919021606
+    },
+    "months": {
+      "n_samples": 60,
+      "mean_group_norm": 11.43215659459432,
+      "std_group_norm": 0.2586732692525035,
+      "mean_vector_norm": 11.432156562805176,
+      "std_vector_norm": 0.2586732506752014
+    },
+    "years": {
+      "n_samples": 220,
+      "mean_group_norm": 11.761770426143299,
+      "std_group_norm": 0.3578038990437337,
+      "mean_vector_norm": 11.761770248413086,
+      "std_vector_norm": 0.3578038811683655
+    }
+  },
+  "pca": {
+    "days": {
+      "explained_variance_ratio": [
+        0.42564883828163147,
+        0.31605416536331177,
+        0.18434076011180878,
+        0.04418696090579033,
+        0.024536095559597015
+      ],
+      "standardized": false,
+      "best_plane": [
+        4,
+        5
+      ],
+      "order_alignment": 0.39713726144611333,
+      "ring_radius_cv": 0.4048780547042902,
+      "planes": {
+        "PC1-PC2": {
+          "order_alignment": 0.06332084251238121,
+          "ring_radius_cv": 0.2741734176207686
+        },
+        "PC2-PC3": {
+          "order_alignment": 0.09301466955446167,
+          "ring_radius_cv": 0.30664780855819296
+        },
+        "PC3-PC4": {
+          "order_alignment": 0.10912931573786937,
+          "ring_radius_cv": 0.39413795056508616
+        },
+        "PC4-PC5": {
+          "order_alignment": 0.39713726144611333,
+          "ring_radius_cv": 0.4048780547042902
+        }
+      },
+      "pc1_radius_corr_pc2_3": 0.6427116741578337
+    },
+    "months": {
+      "explained_variance_ratio": [
+        0.7674624919891357,
+        0.10706102102994919,
+        0.09752657264471054,
+        0.017865050584077835,
+        0.0072758919559419155
+      ],
+      "standardized": false,
+      "best_plane": [
+        4,
+        5
+      ],
+      "order_alignment": 0.3711209933976944,
+      "ring_radius_cv": 0.5668446206134502,
+      "planes": {
+        "PC1-PC2": {
+          "order_alignment": 0.02945000251157291,
+          "ring_radius_cv": 0.49569021457192114
+        },
+        "PC2-PC3": {
+          "order_alignment": 0.10911007614929245,
+          "ring_radius_cv": 0.36287196694159846
+        },
+        "PC3-PC4": {
+          "order_alignment": 0.21572331657104457,
+          "ring_radius_cv": 0.3110151680495733
+        },
+        "PC4-PC5": {
+          "order_alignment": 0.3711209933976944,
+          "ring_radius_cv": 0.5668446206134502
+        }
+      },
+      "pc1_radius_corr_pc2_3": -0.11950581837160357
+    },
+    "years": {
+      "explained_variance_ratio": [
+        0.5961715579032898,
+        0.2137536257505417,
+        0.09995826333761215,
+        0.05340494215488434,
+        0.023791879415512085
+      ],
+      "standardized": false,
+      "best_pc": 2,
+      "best_pc_spearman": 0.2700021976411984,
+      "pc1_spearman": 0.178847421716076,
+      "pca_plane": [
+        2,
+        1
+      ]
+    }
+  },
+  "order_projection": {
+    "days": {
+      "order_alignment": 0.8406888641326155,
+      "ring_radius_cv": 0.33726351552285694
+    },
+    "months": {
+      "order_alignment": 0.6997987466006721,
+      "ring_radius_cv": 0.6612388389875592
+    }
+  },
+  "top_tokens": [
+    {
+      "token_id": 19018,
+      "token": " nonetheless",
+      "score": 0.7087053060531616
+    },
+    {
+      "token_id": 25,
+      "token": ":",
+      "score": 0.6219770908355713
+    },
+    {
+      "token_id": 21912,
+      "token": ":-",
+      "score": 0.5682557821273804
+    },
+    {
+      "token_id": 37498,
+      "token": ":(",
+      "score": 0.567096471786499
+    },
+    {
+      "token_id": 39640,
+      "token": " cautiously",
+      "score": 0.5628699660301208
+    },
+    {
+      "token_id": 19032,
+      "token": " nevertheless",
+      "score": 0.5500892400741577
+    },
+    {
+      "token_id": 757,
+      "token": " again",
+      "score": 0.5448662042617798
+    },
+    {
+      "token_id": 13,
+      "token": ".",
+      "score": 0.5255491733551025
+    },
+    {
+      "token_id": 5176,
+      "token": " thanks",
+      "score": 0.5203993916511536
+    },
+    {
+      "token_id": 36527,
+      "token": " additionally",
+      "score": 0.5168275833129883
+    },
+    {
+      "token_id": 44061,
+      "token": " insofar",
+      "score": 0.5161455273628235
+    },
+    {
+      "token_id": 2158,
+      "token": " however",
+      "score": 0.5159920454025269
+    },
+    {
+      "token_id": 33250,
+      "token": ":[",
+      "score": 0.5046617388725281
+    },
+    {
+      "token_id": 17713,
+      "token": " undoubtedly",
+      "score": 0.5029458999633789
+    },
+    {
+      "token_id": 15394,
+      "token": " considerably",
+      "score": 0.49909406900405884
+    },
+    {
+      "token_id": 22124,
+      "token": " revis",
+      "score": 0.49574607610702515
+    },
+    {
+      "token_id": 43922,
+      "token": ":#",
+      "score": 0.49516624212265015
+    },
+    {
+      "token_id": 44951,
+      "token": " anew",
+      "score": 0.4935973286628723
+    },
+    {
+      "token_id": 22881,
+      "token": " wherein",
+      "score": 0.4922371208667755
+    },
+    {
+      "token_id": 5115,
+      "token": " regarding",
+      "score": 0.4901217222213745
+    }
+  ],
+  "top_prompts": {
+    "days": [
+      {
+        "prompt": "The meeting is on Tuesday.",
+        "term": "Tuesday",
+        "value": 1,
+        "group_norm": 12.408634185791016
+      },
+      {
+        "prompt": "The meeting is on Monday.",
+        "term": "Monday",
+        "value": 0,
+        "group_norm": 12.406311988830566
+      },
+      {
+        "prompt": "The meeting is on Thursday.",
+        "term": "Thursday",
+        "value": 3,
+        "group_norm": 12.383055686950684
+      },
+      {
+        "prompt": "The meeting is on Wednesday.",
+        "term": "Wednesday",
+        "value": 2,
+        "group_norm": 12.32832145690918
+      },
+      {
+        "prompt": "The meeting is on Sunday.",
+        "term": "Sunday",
+        "value": 6,
+        "group_norm": 12.289012908935547
+      },
+      {
+        "prompt": "The meeting is on Friday.",
+        "term": "Friday",
+        "value": 4,
+        "group_norm": 12.276056289672852
+      }
+    ],
+    "months": [
+      {
+        "prompt": "The festival is held in September.",
+        "term": "September",
+        "value": 9,
+        "group_norm": 11.98290729522705
+      },
+      {
+        "prompt": "The festival is held in January.",
+        "term": "January",
+        "value": 1,
+        "group_norm": 11.972513198852539
+      },
+      {
+        "prompt": "The festival is held in February.",
+        "term": "February",
+        "value": 2,
+        "group_norm": 11.884157180786133
+      },
+      {
+        "prompt": "The festival is held in April.",
+        "term": "April",
+        "value": 4,
+        "group_norm": 11.863903045654297
+      },
+      {
+        "prompt": "The festival is held in July.",
+        "term": "July",
+        "value": 7,
+        "group_norm": 11.849067687988281
+      },
+      {
+        "prompt": "The festival is held in October.",
+        "term": "October",
+        "value": 10,
+        "group_norm": 11.825011253356934
+      }
+    ],
+    "years": [
+      {
+        "prompt": "The company was founded in 2013.",
+        "term": "2013",
+        "value": 2013,
+        "group_norm": 12.626863479614258
+      },
+      {
+        "prompt": "The company was founded in 2014.",
+        "term": "2014",
+        "value": 2014,
+        "group_norm": 12.579336166381836
+      },
+      {
+        "prompt": "The company was founded in 2012.",
+        "term": "2012",
+        "value": 2012,
+        "group_norm": 12.541288375854492
+      },
+      {
+        "prompt": "The company was founded in 2015.",
+        "term": "2015",
+        "value": 2015,
+        "group_norm": 12.509258270263672
+      },
+      {
+        "prompt": "The treaty was signed in 2013.",
+        "term": "2013",
+        "value": 2013,
+        "group_norm": 12.498952865600586
+      },
+      {
+        "prompt": "The company was founded in 2011.",
+        "term": "2011",
+        "value": 2011,
+        "group_norm": 12.49740982055664
+      }
+    ]
+  },
+  "embeddings": {
+    "days": {
+      "best_method": "Isomap",
+      "best_order_alignment": 0.07590194891228595,
+      "best_ring_cv": 0.2097045687466097,
+      "pca_best_plane": [
+        4,
+        5
+      ],
+      "pca_best_order_alignment": 0.39713726144611333,
+      "pca_best_ring_cv": 0.4048780547042902
+    },
+    "months": {
+      "best_method": "Isomap",
+      "best_order_alignment": 0.09885931619541302,
+      "best_ring_cv": 0.5692621866222985,
+      "pca_best_plane": [
+        4,
+        5
+      ],
+      "pca_best_order_alignment": 0.3711209933976944,
+      "pca_best_ring_cv": 0.5668446206134502
+    }
+  },
+  "plots": {
+    "figure_png": "/workspace/sasa/analysis_output/temporal_group1751/group_1916_temporal_paper.png",
+    "figure_pdf": "/workspace/sasa/analysis_output/temporal_group1751/group_1916_temporal_paper.pdf",
+    "figure3d_png": "/workspace/sasa/analysis_output/temporal_group1751/group_1916_temporal_paper_3d.png",
+    "figure3d_pdf": "/workspace/sasa/analysis_output/temporal_group1751/group_1916_temporal_paper_3d.pdf",
+    "figure_embed_png": "/workspace/sasa/analysis_output/temporal_group1751/group_1916_temporal_paper_embeddings.png",
+    "figure_embed_pdf": "/workspace/sasa/analysis_output/temporal_group1751/group_1916_temporal_paper_embeddings.pdf",
+    "figure_scatter_png": "/workspace/sasa/analysis_output/temporal_group1751/group_1916_temporal_pca_scatter.png",
+    "figure_scatter_pdf": "/workspace/sasa/analysis_output/temporal_group1751/group_1916_temporal_pca_scatter.pdf"
+  }
+}

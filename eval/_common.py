@@ -395,11 +395,10 @@ class SAEBenchAdapter:
         # The SAE's encode() stores ln_mu/ln_std; we must use them to rescale output.
         run_time_norm_out = getattr(self.sae, "run_time_activation_norm_fn_out", None)
         if run_time_norm_out is not None and callable(run_time_norm_out):
-            original_shape = out.shape
-            if out.dim() > 2:
-                out = run_time_norm_out(out.reshape(-1, out.shape[-1])).view(*original_shape)
-            else:
-                out = run_time_norm_out(out)
+            # Call directly on out regardless of rank. ln_mu/ln_std stored during encode()
+            # match out's batch/seq dims (e.g. (B,T,1) for 3D out), so no reshape needed.
+            # Reshaping to 2D first would misalign dimensions and cause a broadcast error.
+            out = run_time_norm_out(out)
 
         if not self.match_token_norm or self._last_input_norms is None:
             return out

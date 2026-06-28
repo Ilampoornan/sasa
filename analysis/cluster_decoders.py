@@ -245,6 +245,11 @@ def main() -> None:
         default="gpt2-small-res-jb",
         help="SAE Lens release name (e.g. gpt2-small-res-jb).",
     )
+    src.add_argument(
+        "--sae-dir",
+        default=None,
+        help="Path to a SASA checkpoint folder (cfg.json + sae_weights.safetensors). Loaded via SAE.load_from_disk.",
+    )
     ap.add_argument(
         "--hook",
         default="blocks.7.hook_resid_pre",
@@ -422,6 +427,20 @@ def main() -> None:
         W_dec = state["W_dec"]
         source_meta = {"source": "pt", "pt_path": str(pt_path)}
         cache_tag = _slug(pt_path.stem)
+    elif args.sae_dir is not None:
+        from sae_lens import SAE, register_sae_class  # noqa: WPS433
+        from sasa import TopKSASAInference, TopKSASAInferenceConfig  # noqa: WPS433
+
+        try:
+            register_sae_class("topk_sasa", TopKSASAInference, TopKSASAInferenceConfig)
+        except ValueError:
+            pass
+        load_device = args.device or ("cuda" if torch.cuda.is_available() else "cpu")
+        sae = SAE.load_from_disk(str(args.sae_dir), device=load_device)
+        W_dec = sae.W_dec.detach().cpu()
+        sae_dir_path = Path(args.sae_dir)
+        source_meta = {"source": "sae_dir", "sae_dir": str(sae_dir_path)}
+        cache_tag = _slug(sae_dir_path.name)
     else:
         # SAE Lens pretrained SAE
         from sae_lens import SAE  # noqa: WPS433
